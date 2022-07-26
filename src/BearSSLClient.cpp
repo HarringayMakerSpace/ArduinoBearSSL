@@ -24,6 +24,8 @@
 
 #include "ArduinoBearSSL.h"
 
+#define ARDUINO_DISABLE_ECCX08_VERIFY
+
 #ifndef ARDUINO_DISABLE_ECCX08
 #include <ArduinoECCX08.h>
 #endif
@@ -523,6 +525,8 @@ int BearSSLClient::clientRead(void *ctx, unsigned char *buf, size_t len)
   if (result == -1) {
     return 0;
   }
+
+  delay(100); // esp32 needs a delay to allow wifi to be processed?
 
 #ifdef DEBUGSERIAL
   DEBUGSERIAL.print("BearSSLClient::clientRead - ");
