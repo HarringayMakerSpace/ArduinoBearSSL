@@ -58,6 +58,9 @@ BearSSLClient::BearSSLClient(Client* client, const br_x509_trust_anchor* myTAs, 
   _ecVrfy = br_ecdsa_vrfy_asn1_get_default();
   _ecSign = br_ecdsa_sign_asn1_get_default();
 #endif
+#ifdef ARDUINO_DISABLE_ECCX08_VERIFY
+  _ecVrfy = br_ecdsa_vrfy_asn1_get_default();
+#endif
 
   _ecKey.curve = 0;
   _ecKey.x = NULL;
@@ -257,6 +260,9 @@ void BearSSLClient::setEccSlot(int ecc508KeySlot, const byte cert[], int certLen
 #else
   _ecVrfy = br_ecdsa_vrfy_asn1_get_default();
   _ecSign = br_ecdsa_sign_asn1_get_default();
+#endif
+#ifdef ARDUINO_DISABLE_ECCX08_VERIFY
+  _ecVrfy = br_ecdsa_vrfy_asn1_get_default();
 #endif
 }
 
